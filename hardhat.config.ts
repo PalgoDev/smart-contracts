@@ -12,6 +12,10 @@ const config: HardhatUserConfig = {
       url: vars.get("POLYGON_RPC_URL"),
     },
   },
+
+  etherscan: {
+    apiKey: vars.get("POLYGONSCAN_API_KEY"),
+  }
 };
 
 export default config;

@@ -1,1 +1,1 @@
-npx hardhat ignition deploy ./ignition/modules/UserItems.ts --network polygon
+npx hardhat ignition deploy ./ignition/modules/UserItems.ts --network polygon --reset --verify
