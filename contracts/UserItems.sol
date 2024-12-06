@@ -6,9 +6,23 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract UserItems is ERC1155, Ownable {
     string public constant name = "UserItems";
+
+    /// ITEMS
+    //      Core Items
     uint256 public constant CASH = 0; // ERC20 with 18 decimals
+    uint256 public constant HEALTH = 1; // ERC20 with NO Decimals
+    uint256 public constant ATTACK = 2; // ERC20 with NO Decimals
+
+    //      PAL Items
+    uint256 public constant RED_BERRY = 3;
+    uint256 public constant GOLDEN_BERRY = 4;
+
+    //     Real Estate Items will be generated dynamically by id from map
+
+    /// END ITEMS
 
     uint256 private constant STARTER_PACK_CASH_AMOUNT = 10000 * 10 ** 18;
+    uint256 private constant STARTER_PACK_HEALTH_AMOUNT = 100;
 
     mapping(address => bool) hasClaimedStarterPack;
 
@@ -28,6 +42,7 @@ contract UserItems is ERC1155, Ownable {
         hasClaimedStarterPack[msg.sender] = true;
 
         _mint(msg.sender, CASH, STARTER_PACK_CASH_AMOUNT, "");
+        _mint(msg.sender, HEALTH, STARTER_PACK_HEALTH_AMOUNT, "");
     }
 
     function safeTransferFrom(
@@ -38,8 +53,8 @@ contract UserItems is ERC1155, Ownable {
         bytes memory data
     ) public override {
         require(
-            id != CASH,
-            "Cash cannot be transferred, only minted or burned"
+            id != CASH && id != HEALTH && id != ATTACK,
+            "Cash and Health cannot be transferred, only minted or burned"
         );
 
         super.safeTransferFrom(from, to, id, amount, data);
@@ -54,8 +69,8 @@ contract UserItems is ERC1155, Ownable {
     ) public override {
         for (uint256 i = 0; i < ids.length; ) {
             require(
-                ids[i] != CASH,
-                "Cash cannot be transferred, only minted or burned"
+                ids[i] != CASH && ids[i] != HEALTH && ids[i] != ATTACK,
+                "Cash and Health cannot be transferred, only minted or burned"
             );
 
             unchecked {
