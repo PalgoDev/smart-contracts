@@ -13,11 +13,11 @@ contract UserItems is ERC1155, Ownable {
     uint256 public constant HEALTH = 1; // ERC20 with NO Decimals
     uint256 public constant ATTACK = 2; // ERC20 with NO Decimals
 
-    //      PAL Items
-    uint256 public constant RED_BERRY = 3;
-    uint256 public constant GOLDEN_BERRY = 4;
+    //     Real Estate Items will be generated dynamically
 
-    //     Real Estate Items will be generated dynamically by id from map
+    //     Healing Items
+    uint256 public constant POTION = 3; // ERC20 with NO Decimals
+    uint256 public constant SUPER_POTION = 4; // ERC20 with NO Decimals
 
     /// END ITEMS
 
@@ -113,5 +113,26 @@ contract UserItems is ERC1155, Ownable {
         uint256[] memory amounts
     ) public onlyOwner {
         _burnBatch(account, ids, amounts);
+    }
+
+    // Healing Functions
+    function healWithPotion(address account, uint256 amount) public {
+        require(
+            balanceOf(account, POTION) >= amount,
+            "Not enough potions to heal"
+        );
+
+        _burn(account, POTION, amount);
+        _mint(account, HEALTH, 10 * amount, "");
+    }
+
+    function healWithSuperPotion(address account, uint256 amount) public {
+        require(
+            balanceOf(account, SUPER_POTION) >= amount,
+            "Not enough super potions to heal"
+        );
+
+        _burn(account, SUPER_POTION, amount);
+        _mint(account, HEALTH, 50 * amount, "");
     }
 }
