@@ -25,4 +25,19 @@ contract UserItems is ERC1155 {
 
         _mint(msg.sender, CASH, STARTER_PACK_CASH_AMOUNT, "");
     }
+
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 id,
+        uint256 amount,
+        bytes memory data
+    ) public override {
+        require(
+            id != CASH,
+            "Cash cannot be transferred, only minted or burned"
+        );
+
+        super.safeTransferFrom(from, to, id, amount, data);
+    }
 }
