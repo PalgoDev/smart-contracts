@@ -83,4 +83,20 @@ contract UserItems is ERC1155, Ownable {
     ) public onlyOwner {
         _mintBatch(account, ids, amounts, data);
     }
+
+    function burn(
+        address account,
+        uint256 id,
+        uint256 amount
+    ) public onlyOwner {
+        _burn(account, id, amount);
+    }
+
+    function burnBatch(
+        address account,
+        uint256[] memory ids,
+        uint256[] memory amounts
+    ) public onlyOwner {
+        _burnBatch(account, ids, amounts);
+    }
 }
