@@ -10,22 +10,26 @@ contract UserItems is ERC1155, Ownable {
     /// ITEMS
     //      Core Items
     uint256 public constant CASH = 0; // ERC20 with 18 decimals
-    uint256 public constant HEALTH = 1; // ERC20 with NO Decimals
-    uint256 public constant ATTACK = 2; // ERC20 with NO Decimals
+    uint256 public constant HEALTH = 1;
+    uint256 public constant ATTACK = 2;
+    uint256 public constant DEFENSE = 3;
 
     //     Real Estate Items will be generated dynamically
 
     //     Healing Items
-    uint256 public constant POTION = 3; // ERC20 with NO Decimals
-    uint256 public constant SUPER_POTION = 4; // ERC20 with NO Decimals
+    uint256 public constant POTION = 4;
+    uint256 public constant SUPER_POTION = 5;
 
     /// END ITEMS
+
+    uint256 public constant HEALTH_BY_POTION = 10;
+    uint256 public constant HEALTH_BY_SUPER_POTION = 50;
 
     uint256 private constant STARTER_PACK_CASH_AMOUNT = 10000 * 10 ** 18;
     uint256 private constant STARTER_PACK_HEALTH_AMOUNT = 100;
     uint256 private constant STARTER_PACK_ATTACK_AMOUNT = 100;
 
-    mapping(address => bool) hasClaimedStarterPack;
+    mapping(address => bool) public hasClaimedStarterPack;
 
     constructor()
         ERC1155("https://localhost:8001/items/{id}.json")
@@ -55,7 +59,7 @@ contract UserItems is ERC1155, Ownable {
         bytes memory data
     ) public override {
         require(
-            id != CASH && id != HEALTH && id != ATTACK,
+            id != CASH && id != HEALTH && id != ATTACK && id != DEFENSE,
             "Cash and Health cannot be transferred, only minted or burned"
         );
 
@@ -71,7 +75,7 @@ contract UserItems is ERC1155, Ownable {
     ) public override {
         for (uint256 i = 0; i < ids.length; ) {
             require(
-                ids[i] != CASH && ids[i] != HEALTH && ids[i] != ATTACK,
+                ids[i] != CASH && ids[i] != HEALTH && ids[i] != ATTACK && ids[i] != DEFENSE,
                 "Cash and Health cannot be transferred, only minted or burned"
             );
 
@@ -125,7 +129,7 @@ contract UserItems is ERC1155, Ownable {
         );
 
         _burn(account, POTION, amount);
-        _mint(account, HEALTH, 10 * amount, "");
+        _mint(account, HEALTH, amount * HEALTH_BY_POTION, "");
     }
 
     function healWithSuperPotion(address account, uint256 amount) public {
@@ -135,6 +139,6 @@ contract UserItems is ERC1155, Ownable {
         );
 
         _burn(account, SUPER_POTION, amount);
-        _mint(account, HEALTH, 50 * amount, "");
+        _mint(account, HEALTH, amount * HEALTH_BY_SUPER_POTION, "");
     }
 }
