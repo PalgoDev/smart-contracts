@@ -77,7 +77,10 @@ contract UserItems is ERC1155, Ownable {
     ) public override {
         for (uint256 i = 0; i < ids.length; ) {
             require(
-                ids[i] != CASH && ids[i] != HEALTH && ids[i] != ATTACK && ids[i] != DEFENSE,
+                ids[i] != CASH &&
+                    ids[i] != HEALTH &&
+                    ids[i] != ATTACK &&
+                    ids[i] != DEFENSE,
                 "Cash and Health cannot be transferred, only minted or burned"
             );
 
@@ -124,7 +127,8 @@ contract UserItems is ERC1155, Ownable {
     }
 
     // Healing Functions
-    function healWithPotion(address account, uint256 quantity) public {
+    function healWithPotion(uint256 quantity) public {
+        address account = msg.sender;
         require(
             balanceOf(account, POTION) >= quantity,
             "Not enough potions to heal"
@@ -134,7 +138,8 @@ contract UserItems is ERC1155, Ownable {
         _mint(account, HEALTH, quantity * HEALTH_BY_POTION, "");
     }
 
-    function healWithSuperPotion(address account, uint256 quantity) public {
+    function healWithSuperPotion(uint256 quantity) public {
+        address account = msg.sender;
         require(
             balanceOf(account, SUPER_POTION) >= quantity,
             "Not enough super potions to heal"
