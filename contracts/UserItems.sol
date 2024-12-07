@@ -28,6 +28,7 @@ contract UserItems is ERC1155, Ownable {
     uint256 private constant STARTER_PACK_CASH_AMOUNT = 10000 * 10 ** 18;
     uint256 private constant STARTER_PACK_HEALTH_AMOUNT = 100;
     uint256 private constant STARTER_PACK_ATTACK_AMOUNT = 100;
+    uint256 private constant STARTER_PACK_DEFENSE_AMOUNT = 100;
 
     mapping(address => bool) public hasClaimedStarterPack;
 
@@ -49,6 +50,7 @@ contract UserItems is ERC1155, Ownable {
         _mint(msg.sender, CASH, STARTER_PACK_CASH_AMOUNT, "");
         _mint(msg.sender, HEALTH, STARTER_PACK_HEALTH_AMOUNT, "");
         _mint(msg.sender, ATTACK, STARTER_PACK_ATTACK_AMOUNT, "");
+        _mint(msg.sender, DEFENSE, STARTER_PACK_DEFENSE_AMOUNT, "");
     }
 
     function safeTransferFrom(
