@@ -3,6 +3,7 @@ pragma solidity ^0.8.20;
 
 import {ERC1155} from "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract UserItems is ERC1155, Ownable {
     string public constant name = "UserItems";
@@ -32,11 +33,17 @@ contract UserItems is ERC1155, Ownable {
 
     mapping(address => bool) public hasClaimedStarterPack;
 
+    address public tokenAddress;
+
     constructor()
-        ERC1155("https://localhost:8001/items/{id}.json")
+        ERC1155("https://backend-3jc3.onrender.com/items/{id}.json")
         Ownable(msg.sender)
     {
         _mint(msg.sender, CASH, 10 ** 18, "");
+    }
+
+    function setTokenAddress(address _tokenAddress) public onlyOwner {
+        tokenAddress = _tokenAddress;
     }
 
     function claimStarterPack() external {
@@ -148,5 +155,44 @@ contract UserItems is ERC1155, Ownable {
         _burn(account, SUPER_POTION, quantity);
         _mint(account, HEALTH, quantity * HEALTH_BY_SUPER_POTION, "");
     }
+
+    function buyUnit(uint256 tokenId) public {
+        if (tokenId == POTION) {
+            require(
+                IERC20(tokenAddress).transferFrom(
+                    msg.sender,
+                    address(this),
+                    1 * 10 ** 18
+                ),
+                "Transfer failed"
+            );
+            _mint(msg.sender, POTION, 1, "");
+        } else if (tokenId == SUPER_POTION) {
+            require(
+                IERC20(tokenAddress).transferFrom(
+                    msg.sender,
+                    address(this),
+                    5 * 10 ** 18
+                ),
+                "Transfer failed"
+            );
+            _mint(msg.sender, SUPER_POTION, 1, "");
+        } else if (tokenId == CASH) {
+            require(
+                IERC20(tokenAddress).transferFrom(
+                    msg.sender,
+                    address(this),
+                    10 * 10 ** 18
+                ),
+                "Transfer failed"
+            );
+            _mint(msg.sender, CASH, 1000, "");
+        } else {
+            revert("Invalid token id");
+        }
+    }
+
+    function withdrawTokenTo(address to, uint256 amount) public onlyOwner {
+        require(IERC20(tokenAddress).transfer(to, amount), "Transfer failed");
+    }
 }
- 
