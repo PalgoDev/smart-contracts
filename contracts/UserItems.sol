@@ -124,23 +124,23 @@ contract UserItems is ERC1155, Ownable {
     }
 
     // Healing Functions
-    function healWithPotion(address account, uint256 amount) public {
+    function healWithPotion(address account, uint256 quantity) public {
         require(
-            balanceOf(account, POTION) >= amount,
+            balanceOf(account, POTION) >= quantity,
             "Not enough potions to heal"
         );
 
-        _burn(account, POTION, amount);
-        _mint(account, HEALTH, amount * HEALTH_BY_POTION, "");
+        _burn(account, POTION, quantity);
+        _mint(account, HEALTH, quantity * HEALTH_BY_POTION, "");
     }
 
-    function healWithSuperPotion(address account, uint256 amount) public {
+    function healWithSuperPotion(address account, uint256 quantity) public {
         require(
-            balanceOf(account, SUPER_POTION) >= amount,
+            balanceOf(account, SUPER_POTION) >= quantity,
             "Not enough super potions to heal"
         );
 
-        _burn(account, SUPER_POTION, amount);
-        _mint(account, HEALTH, amount * HEALTH_BY_SUPER_POTION, "");
+        _burn(account, SUPER_POTION, quantity);
+        _mint(account, HEALTH, quantity * HEALTH_BY_SUPER_POTION, "");
     }
 }
