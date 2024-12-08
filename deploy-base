@@ -1,0 +1,1 @@
+npx hardhat ignition deploy ./ignition/modules/UserItems.ts --network base --reset --verify
