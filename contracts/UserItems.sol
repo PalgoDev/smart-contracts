@@ -26,7 +26,7 @@ contract UserItems is ERC1155, Ownable {
     uint256 public constant HEALTH_BY_POTION = 10;
     uint256 public constant HEALTH_BY_SUPER_POTION = 50;
 
-    uint256 private constant STARTER_PACK_CASH_AMOUNT = 10000 * 10 ** 18;
+    uint256 private constant STARTER_PACK_CASH_AMOUNT = 1000 * 10 ** 18;
     uint256 private constant STARTER_PACK_HEALTH_AMOUNT = 100;
     uint256 private constant STARTER_PACK_ATTACK_AMOUNT = 100;
     uint256 private constant STARTER_PACK_DEFENSE_AMOUNT = 100;
