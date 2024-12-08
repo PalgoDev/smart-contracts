@@ -22,11 +22,11 @@ Transaction hashes:
 3. 0x5e4ae9773147e4d79873a332f1048793e143342cd1ddb3e9a959b1a3c5d09c8f
 
 
-**Okto SDK:**
+**Okto SDK:
 **We use the okto SDK to allow users to login via their EMail and get a closed wallet. This wallet is then used to perform all the transactions and verifications in our application.
 Palgo is a consumer centric application that empowers the next gen of web3 users from the commercial and retail perspective.
 
-**BNB Chain:**
+**BNB Chain:
 **The smart contracts for our project are deployed on the BNB chain and are verified for transparency purposes.
 Contract address - 0x82001E29BEe0e110ae3EC7704e012DF84CB0dbFe
 Block explorer URL - https://bscscan.com/address/0x82001e29bee0e110ae3ec7704e012df84cb0dbfe
