@@ -37,5 +37,16 @@ Transaction hashes:
 3. 0xde18172b21bb13e5679f7c202db882d519d607954c40beb0ffd663b3c3a8a5ff
 
 
+**Polygon:**
+**The smart contracts for our project are deployed on the Polygon chain and are verified for transparency purposes.
+Contract address - 0x8462c842D6e4249da988DBf7A7FCAbcfaeFCa733
+Block explorer URL - https://polygonscan.com/address/0x8462c842D6e4249da988DBf7A7FCAbcfaeFCa733#code
+
+Transaction hashes:
+1. 0xc9ce704130253624f00bb9449d1b4f7dbf41085dc3a790db4c2697039770e6c0
+2. 0x8fa08558034b5629ab5f4c1a2f615608d71138cce6ee0dad5cb2a09a7401bc22
+3. 0xd5ae84c959c4236f84a98c73e5f747e74d2dbb27e10e8ff1529b6dde17b8bf78
+
+
 
 
